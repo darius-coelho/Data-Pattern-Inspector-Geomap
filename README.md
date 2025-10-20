@@ -5,7 +5,7 @@ A client-only React application for visual analytics for exploring patterns mine
 It handles large local files, performs heavy computations in Web Workers, stores intermediate results in IndexedDB, and renders interactive visualizations on a dashboard.
 
 
-## Technology Stack
+## Tech Stack
 
 - **React 18** with TypeScript
 - **Vite**
