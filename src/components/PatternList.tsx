@@ -1,17 +1,37 @@
-export type Pattern = { id: string; label: string; criteria: Record<string, string> };
+import React from 'react';
+import PatternListItem from './pattern/PatternListItem';
+import { Pattern } from '../types/data.types';
 
-export function PatternList({ patterns }: { patterns: Pattern[] }) {
-  return (
-    <div className="p-3 text-sm space-y-2">
-      {patterns.map((p) => (
-        <div key={p.id} className="rounded border p-2">
-          <div className="font-medium">{p.label}</div>
-          <div className="text-xs text-gray-600">{JSON.stringify(p.criteria)}</div>
-        </div>
-      ))}
-    </div>
-  );
+interface PatternListProps {
+  patterns: Pattern[];
+  globalTargetValue: number;
+  selectedPatternId: number | null;
+  onSelectPattern: (patternId: number) => void;
 }
 
+export const PatternList: React.FC<PatternListProps> = ({
+  patterns,
+  globalTargetValue,
+  selectedPatternId,
+  onSelectPattern
+}) => {
+  return (
+    // h-full + min-h-0 so this container can be measured inside flex parent; overflow-y-auto to scroll
+    <div className="h-full min-h-0 overflow-y-auto p-2 text-sm space-y-2">
+      {patterns.map((p) => (
+        <PatternListItem
+           key={p.id} 
+           title={`Pattern ${p.id}`} 
+           dataCount={p.rowCount ? +p.rowCount.toFixed(2) : 0}
+           nConstraints={Object.keys(p.constraints || {}).length}
+           targetValue={+p.targetMean.toFixed(2)}
+           targetDiff={+p.targetMean - globalTargetValue}
+           selected={selectedPatternId !== null ? +p.id === +selectedPatternId : false}
+           onSelect={() => onSelectPattern(p.id)}
+        />
+      ))}
+    </div>     
+  );
+};
 
-
+export default PatternList;
