@@ -23,6 +23,10 @@ If you use or reference this tool in your research, please cite the following pu
 }
 ```
 
+### **Demo**
+
+**Live Demo:** [https://data-pattern-inspector-geomap-fi3wgso4y.vercel.app/](https://data-pattern-inspector-geomap-fi3wgso4y.vercel.app/)
+
 ---
 
 ## **Tech Stack**
