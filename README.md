@@ -1,26 +1,48 @@
-# Data Pattern Inspector Geomap
+# **Data Pattern Inspector Geomap**
 
-A client-only React application for visual analytics for exploring patterns mined with the AK Analyst.
+A **client-only React application** for **interactive visual analytics** of patterns mined over geo-location data using the **AK Analyst**.  
 
-It handles large local files, performs heavy computations in Web Workers, stores intermediate results in IndexedDB, and renders interactive visualizations on a dashboard.
+The application supports **large local datasets**, performs **heavy computations in Web Workers**, stores **intermediate results in IndexedDB**, and provides an **interactive dashboard** for geographic and statistical exploration.
 
+This tool is a **research product** developed as part of ongoing work on pattern-based data exploration and visualization, associated with the following paper:  
+> **D. Coelho, N. Gupta, E. Papenhausen, and K. Mueller**,  
+> *"Interactive Visual Analysis of Pattern-based Data Mining Results,"*  
+> Workshop on Visual Analytics in Healthcare (VAHC), 2022.  
+> [https://ieeexplore.ieee.org/document/10108527](https://ieeexplore.ieee.org/document/10108527)
 
-## Tech Stack
+If you use or reference this tool in your research, please cite the following publication:
 
-- **React 18** with TypeScript
-- **Vite**
-- **Tailwind CSS** for styling
-- **Web Workers** for background processing
-- **IndexedDB** (via idb library) for local storage
+```bibtex
+@inproceedings{coelho2022patterns,
+  title={Patterns of social vulnerability-an interactive dashboard to explore risks to public health on the us county level},
+  author={Coelho, Darius and Gupta, Nikita and Papenhausen, Eric and Mueller, Klaus},
+  booktitle={2022 Workshop on Visual Analytics in Healthcare (VAHC)},
+  pages={01--09},
+  year={2022},
+  organization={IEEE}
+}
+```
 
-## Getting Started
+---
 
-### Prerequisites
+## **Tech Stack**
 
-- Node.js 16+ 
-- npm or yarn
+- **React 18** with TypeScript  
+- **Vite** for fast builds and hot reloading  
+- **Tailwind CSS** for responsive, modern UI design  
+- **Web Workers** for background computation and responsiveness  
+- **IndexedDB** (via `idb`) for efficient local data storage  
 
-### Installation
+---
+
+## **Getting Started**
+
+### **Prerequisites**
+
+- **Node.js** ≥ 16  
+- **npm** or **yarn**
+
+### **Installation**
 
 1. Clone the repository:
 ```bash
@@ -46,23 +68,23 @@ npm run dev
 npm run build
 ```
 
-The built files will be in the `dist` directory, ready for deployment to Vercel, GitHub Pages, or any static hosting service.
+The built files will be in the `dist` directory, ready for deployment.
 
 ## Usage
 
 ### Upload Page
 1. Upload a dataset CSV file (up to 50MB)
 2. Upload a patterns CSV file (up to 1MB)  
-3. Files are automatically checked for file formats and require columns
-4. Click "Load Dashbaord" to begin processing data for the dashboard.
-5. You will be forwared ed to the dashboard after computation completes (progress bar will show status).
+3. The files are automatically validated for format and required columns
+4. Click “Load Dashboard” to process data
+5. A progress bar shows computation progress; you’ll be automatically redirected to the dashboard upon completion.
 
 ### Dashboard Page
-The dashboard automatically loads after successful computation with two layout options:
+After data processing, the dashboard loads automatically with two layout options:
 
 **Layout Map -> Pattern (Default)**:
-- Left: Pattern List (searchable, sortable)
-- Center: Pattern Details (statistics and records)
+- Left: Pattern List
+- Center: Pattern Details
 - Right: Geographic Map (top) + Location Summary (bottom)
 
 **Pattern -> Map (Alternative)**:
@@ -71,24 +93,31 @@ The dashboard automatically loads after successful computation with two layout o
 - Right: Pattern Details  
 
 ### Features
-- **Pattern List**: View patterns in order in which they were mined. Shows the amount of data, number of constraints and mean target value for that pattern.
-- **Pattern Details**: View statistics and individual records for selected patterns
-- **Geographic Map**: Interactive canvas-based US map with clickable counties
-- **Location Summary**: Key metrics, categories, and data quality indicators
+- **Pattern List**: Browse mined patterns with info on data volume, constraints, and mean target values
+- **Pattern Details**: Inspect pattern-level statistics and individual records
+- **Geographic Map**: Interactive, canvas-based US map with zoom and click support for county-level exploration
+- **Location Summary**: Displays metrics, risk categories, and data quality indicators for selected regions
 
 ## File Formats
 
 ### Dataset CSV
-Must have the columns:
+Required columns:
 - `fips`: FIPS code
 - `county`: County name  
 - `state`: State name
 
 ### Patterns CSV
-Should be generated with the AK analyst and have the columns:
+Typically generated using the AK Analyst tool.
+
+Required columns:
 - `keys`: Pattern IDs
 - `description`: Pattern description in JSON format and includes constraints
 - `target`: name of target - should be identical for all patterns
 - `count`: number of data points in the pattern
 - `mean`: mean target value for the pattern
 
+## Notes
+- All computations and storage occur entirely in the browser — no backend services required.
+- Designed to handle large datasets efficiently using Web Workers.
+- Ideal for offline visual exploration of geographically indexed pattern data.
+- Developed as part of academic research into visual pattern mining and analytics.
